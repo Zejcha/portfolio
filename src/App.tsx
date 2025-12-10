@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, ExternalLink, Mail, Code, Server, Database, Globe, ChevronDown, Menu, X, ArrowUp, Plus, Image as ImageIcon, Languages, Shield, Copy, Check, Facebook, MessageCircle } from 'lucide-react';
+import { Github, Mail, Menu, X, ArrowUp, Plus, Languages, Shield, Copy, Check, Facebook, MessageCircle, ExternalLink, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TYPY I INTERFEJSY ---
@@ -13,7 +13,7 @@ interface LocalizedText {
 
 interface Project {
   id: number;
-  title: string;
+  title: string | LocalizedText;
   category: LocalizedText;
   description: LocalizedText;
   tech: string[];
@@ -22,6 +22,12 @@ interface Project {
   imageUrl?: string; 
   isPlaceholder?: boolean;
 }
+
+// --- FUNKCJA NAPRAWIAJĄCA ŚCIEŻKI (FIX DLA GITHUB PAGES) ---
+const resolvePath = (path: string) => {
+  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
+};
 
 // --- SŁOWNIK TŁUMACZEŃ INTERFEJSU ---
 const translations = {
@@ -40,7 +46,6 @@ const translations = {
     projects_title: "Wybrane Projekty",
     projects_subtitle: "Poniżej znajduje się lista stron, które zrealizowałem w ramach DProject.",
     projects_hover_hint: "Najedź, aby zobaczyć zdjęcie",
-    skills_title: "Tech Stack",
     footer_title: "Szukasz strony?",
     footer_desc: "To bardzo dobrze się składa. DProject zajmie się Twoją stroną od A do Z. Oferuję nowoczesne rozwiązania, kompleksową obsługę i przystępne ceny.",
     footer_btn_mail: "Napisz do mnie",
@@ -108,7 +113,6 @@ const translations = {
     projects_title: "Selected Projects",
     projects_subtitle: "Below is a list of websites realized under DProject.",
     projects_hover_hint: "Hover to view image",
-    skills_title: "Tech Stack",
     footer_title: "Need a website?",
     footer_desc: "You've come to the right place. DProject will handle your website from A to Z. I offer modern solutions, comprehensive service, and affordable prices.",
     footer_btn_mail: "Email me",
@@ -159,29 +163,23 @@ const translations = {
 const Portfolio: React.FC = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [showScrollTop, setShowScrollTop] = useState<boolean>(false); // Przywrócono stan dla FAB
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false); 
   const [lang, setLang] = useState<Language>('pl');
   
-  // Stan dla rotacji sloganów
   const [sloganIndex, setSloganIndex] = useState(0);
-  
-  // Stany modali
   const [privacyOpen, setPrivacyOpen] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
 
   const t = translations[lang];
 
-  // --- ROTACJA SLOGANÓW ---
   useEffect(() => {
     const interval = setInterval(() => {
       setSloganIndex((prev) => (prev + 1) % t.hero_slogans.length);
-    }, 3500); // Zmiana co 3.5 sekundy
+    }, 3500); 
     return () => clearInterval(interval);
   }, [t.hero_slogans.length]);
 
-  // --- SEKCJA ZABEZPIECZEŃ ---
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -191,7 +189,6 @@ const Portfolio: React.FC = () => {
         e.preventDefault();
       }
     };
-
     document.addEventListener('contextmenu', handleContextMenu);
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -203,13 +200,12 @@ const Portfolio: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      setShowScrollTop(window.scrollY > 400); // Przywrócono logikę pokazywania FAB
+      setShowScrollTop(window.scrollY > 400); 
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Blokada scrollowania tła
   useEffect(() => {
     if (privacyOpen || contactOpen) {
       document.body.style.overflow = 'hidden';
@@ -244,7 +240,6 @@ const Portfolio: React.FC = () => {
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  // LISTA PROJEKTÓW
   const projects: Project[] = [
     {
       id: 1,
@@ -252,12 +247,12 @@ const Portfolio: React.FC = () => {
       category: { pl: "Strona Firmowa", en: "Corporate Website" },
       description: {
         pl: "Profesjonalna wizytówka online dla firmy budowlanej. Nacisk na prezentację realizacji i ofertę.",
-        en: "Professional online business card for a construction company. Emphasis on portfolio presentation and offer details."
+        en: "Professional online business card for a construction company."
       },
       tech: ["WordPress", "RWD", "SEO"],
       link: "https://wazkauslugibudowlane.pl",
       repo: "#",
-      imageUrl: "/projects/wazka.jpg" 
+      imageUrl: resolvePath("projects/wazka.jpg")
     },
     {
       id: 2,
@@ -265,220 +260,220 @@ const Portfolio: React.FC = () => {
       category: { pl: "Serwis & Sklep", en: "Service & Shop" },
       description: {
         pl: "Strona dla serwisu telefonów komórkowych z katalogiem usług i akcesoriów.",
-        en: "Website for a mobile phone service point with a catalog of services and accessories."
+        en: "Website for a mobile phone service point."
       },
       tech: ["HTML5", "CSS3", "JavaScript"],
       link: "https://vip-gsm.pl",
       repo: "#",
-      imageUrl: "/projects/vip-gsm.jpg"
+      imageUrl: resolvePath("projects/vip-gsm.jpg")
     },
     {
       id: 3,
       title: "Party Wave",
       category: { pl: "Eventy", en: "Events" },
       description: {
-        pl: "Nowoczesna strona agencji eventowej. Dynamiczny design oddający charakter branży rozrywkowej.",
-        en: "Modern website for an event agency. Dynamic design reflecting the entertainment industry character."
+        pl: "Nowoczesna strona agencji eventowej. Dynamiczny design.",
+        en: "Modern website for an event agency."
       },
       tech: ["React", "Framer Motion", "Tailwind"],
       link: "https://partywave.pl",
       repo: "#",
-      imageUrl: "/projects/partywave.jpg"
+      imageUrl: resolvePath("projects/partywave.jpg")
     },
     {
       id: 4,
       title: "Miodowa Pasieka",
       category: { pl: "E-commerce", en: "E-commerce" },
       description: {
-        pl: "Sklep internetowy z naturalnymi miodami. Integracja płatności i system zarządzania zamówieniami.",
-        en: "Online store with natural honey. Payment integration and order management system."
+        pl: "Sklep internetowy z naturalnymi miodami.",
+        en: "Online store with natural honey."
       },
       tech: ["WooCommerce", "PHP", "MySQL"],
       link: "https://miodowapasieka.pl",
       repo: "#",
-      imageUrl: "/projects/miodowapasieka.jpg"
+      imageUrl: resolvePath("projects/miodowapasieka.jpg")
     },
     {
       id: 5,
       title: "Miody Słowik",
       category: { pl: "Sklep Online", en: "Online Shop" },
       description: {
-        pl: "Rodzinna manufaktura miodu. Strona łączy storytelling z funkcjami sprzedażowymi.",
-        en: "Family honey manufactory. The site combines storytelling with sales functions."
+        pl: "Rodzinna manufaktura miodu.",
+        en: "Family honey manufactory."
       },
       tech: ["WordPress", "Elementor", "CSS3"],
       link: "https://miodyslowik.pl",
       repo: "#",
-      imageUrl: "/projects/miodyslowik.jpg"
+      imageUrl: resolvePath("projects/miodyslowik.jpg")
     },
     {
       id: 6,
       title: "Dobranoc Maluszku",
       category: { pl: "Blog & Sklep", en: "Blog & Shop" },
       description: {
-        pl: "Portal parentingowy połączony ze sklepem. Przyjazny design i intuicyjna nawigacja dla rodziców.",
-        en: "Parenting portal combined with a shop. Friendly design and intuitive navigation for parents."
+        pl: "Portal parentingowy połączony ze sklepem.",
+        en: "Parenting portal combined with a shop."
       },
       tech: ["CMS", "RWD", "Analytics"],
       link: "https://dobranocmaluszku.pl",
       repo: "#",
-      imageUrl: "/projects/dobranocmaluszku.jpg"
+      imageUrl: resolvePath("projects/dobranocmaluszku.jpg")
     },
     {
       id: 7,
       title: "E-Aristo",
       category: { pl: "E-commerce", en: "E-commerce" },
       description: {
-        pl: "Platforma sprzedażowa z szerokim asortymentem. Optymalizacja pod kątem szybkości ładowania.",
-        en: "Sales platform with a wide assortment. Optimization for loading speed."
+        pl: "Platforma sprzedażowa z szerokim asortymentem.",
+        en: "Sales platform with a wide assortment."
       },
       tech: ["PrestaShop", "PHP", "Bootstrap"],
       link: "https://e-aristo.pl",
       repo: "#",
-      imageUrl: "/projects/e-aristo.jpg"
+      imageUrl: resolvePath("projects/e-aristo.jpg")
     },
     {
       id: 8,
       title: "Maro Oleje",
       category: { pl: "B2B / Przemysł", en: "B2B / Industry" },
       description: {
-        pl: "Katalog produktów dla dystrybutora olejów przemysłowych. System zapytań ofertowych.",
-        en: "Product catalog for an industrial oil distributor. Inquiry system."
+        pl: "Katalog produktów dla dystrybutora olejów przemysłowych.",
+        en: "Product catalog for an industrial oil distributor."
       },
       tech: ["HTML5", "Sass", "jQuery"],
       link: "https://marooleje.com",
       repo: "#",
-      imageUrl: "/projects/marooleje.jpg"
+      imageUrl: resolvePath("projects/marooleje.jpg")
     },
     {
       id: 9,
       title: "Thai Vege",
       category: { pl: "Gastronomia", en: "Gastronomy" },
       description: {
-        pl: "Strona restauracji z menu online i możliwością rezerwacji stolika. Klimatyczna szata graficzna.",
-        en: "Restaurant website with online menu and table reservation. Atmospheric graphic design."
+        pl: "Strona restauracji z menu online.",
+        en: "Restaurant website with online menu."
       },
       tech: ["WordPress", "Restaurant Plugin", "CSS"],
       link: "https://thaivege.pl",
       repo: "#",
-      imageUrl: "/projects/thaivege.jpg"
+      imageUrl: resolvePath("projects/thaivege.jpg")
     },
     {
       id: 10,
       title: "Chilli Mili",
       category: { pl: "Gastronomia", en: "Gastronomy" },
       description: {
-        pl: "Wizytówka lokalu gastronomicznego. Integracja z mapami Google i mediami społecznościowymi.",
-        en: "Restaurant business card. Integration with Google Maps and social media."
+        pl: "Wizytówka lokalu gastronomicznego.",
+        en: "Restaurant business card."
       },
       tech: ["React", "Styled Components", "Maps API"],
       link: "https://chillimili.pl",
       repo: "#",
-      imageUrl: "/projects/chillimili.jpg"
+      imageUrl: resolvePath("projects/chillimili.jpg")
     },
     {
       id: 11,
       title: "Stol-Past",
       category: { pl: "Usługi Stolarskie", en: "Carpentry Services" },
       description: {
-        pl: "Portfolio pracowni stolarskiej. Galeria realizacji i formularz kontaktowy.",
-        en: "Carpentry workshop portfolio. Realization gallery and contact form."
+        pl: "Portfolio pracowni stolarskiej.",
+        en: "Carpentry workshop portfolio."
       },
       tech: ["HTML5", "LightGallery.js", "PHP Mailer"],
       link: "https://stol-past.pl",
       repo: "#",
-      imageUrl: "/projects/stol-past.jpg"
+      imageUrl: resolvePath("projects/stol-past.jpg")
     },
     {
       id: 12,
       title: "Mazurski Plon",
       category: { pl: "Rolnictwo", en: "Agriculture" },
       description: {
-        pl: "Strona promująca lokalne produkty rolne. Prosty i przejrzysty layout.",
-        en: "Website promoting local agricultural products. Simple and clear layout."
+        pl: "Strona promująca lokalne produkty rolne.",
+        en: "Website promoting local agricultural products."
       },
       tech: ["WordPress", "RWD", "SEO"],
       link: "https://mazurski-plon.pl",
       repo: "#",
-      imageUrl: "/projects/mazurski-plon.jpg"
+      imageUrl: resolvePath("projects/mazurski-plon.jpg")
     },
     {
       id: 13,
       title: "Lengyel Magyar",
       category: { pl: "Kultura", en: "Culture" },
       description: {
-        pl: "Portal poświęcony współpracy polsko-węgierskiej. Blog i aktualności.",
-        en: "Portal dedicated to Polish-Hungarian cooperation. Blog and news."
+        pl: "Portal poświęcony współpracy polsko-węgierskiej.",
+        en: "Portal dedicated to Polish-Hungarian cooperation."
       },
       tech: ["CMS", "Multi-language", "CSS3"],
       link: "https://lengyelmagyar.eu",
       repo: "#",
-      imageUrl: "/projects/lengyelmagyar.jpg"
+      imageUrl: resolvePath("projects/lengyelmagyar.jpg")
     },
     {
       id: 14,
       title: "Knotologicznie",
       category: { pl: "Rękodzieło", en: "Handicraft" },
       description: {
-        pl: "Sklep z rękodziełem (świece, makrama). Minimalistyczny design eksponujący zdjęcia produktów.",
-        en: "Handicraft shop (candles, macrame). Minimalist design exposing product photos."
+        pl: "Sklep z rękodziełem (świece, makrama).",
+        en: "Handicraft shop (candles, macrame)."
       },
       tech: ["WooCommerce", "Instagram Feed", "CSS"],
       link: "https://knotologicznie.pl",
       repo: "#",
-      imageUrl: "/projects/knotologicznie.jpg"
+      imageUrl: resolvePath("projects/knotologicznie.jpg")
     },
     {
       id: 15,
       title: "Kazana Ubezpiecza",
       category: { pl: "Finanse", en: "Finance" },
       description: {
-        pl: "Profesjonalna strona agenta ubezpieczeniowego. Kalkulatory i formularze kontaktowe.",
-        en: "Professional insurance agent website. Calculators and contact forms."
+        pl: "Profesjonalna strona agenta ubezpieczeniowego.",
+        en: "Professional insurance agent website."
       },
       tech: ["WordPress", "JS Forms", "Bootstrap"],
       link: "https://kazanaubezpiecza.pl",
       repo: "#",
-      imageUrl: "/projects/kazana.jpg"
+      imageUrl: resolvePath("projects/kazana.jpg")
     },
     {
       id: 16,
       title: "Pasieka u Andrzeja",
       category: { pl: "Produktowa", en: "Product Site" },
       description: {
-        pl: "Wizytówka lokalnej pasieki. Historia firmy i oferta produktów pszczelich.",
-        en: "Local apiary business card. Company history and bee products offer."
+        pl: "Wizytówka lokalnej pasieki.",
+        en: "Local apiary business card."
       },
       tech: ["HTML5", "CSS3", "JavaScript"],
       link: "https://pasiekauandrzeja.pl",
       repo: "#",
-      imageUrl: "/projects/pasiekauandrzeja.jpg"
+      imageUrl: resolvePath("projects/pasiekauandrzeja.jpg")
     },
     {
       id: 17,
       title: "Ewix",
       category: { pl: "Usługi (Holandia)", en: "Services (NL)" },
       description: {
-        pl: "Strona firmy usługowej działającej na rynku holenderskim. Wielojęzyczność.",
-        en: "Website of a service company operating in the Dutch market. Multilingual."
+        pl: "Strona firmy usługowej działającej na rynku holenderskim.",
+        en: "Website of a service company operating in the Dutch market."
       },
       tech: ["React", "i18next", "Tailwind"],
       link: "https://ewix.nl",
       repo: "#",
-      imageUrl: "/projects/ewix.jpg"
+      imageUrl: resolvePath("projects/ewix.jpg")
     },
     {
       id: 18,
       title: "Silveroon",
       category: { pl: "Jubiler", en: "Jeweler" },
       description: {
-        pl: "Ekskluzywny sklep z biżuterią. Elegancki design i zaawansowane filtrowanie produktów.",
-        en: "Exclusive jewelry store. Elegant design and advanced product filtering."
+        pl: "Ekskluzywny sklep z biżuterią.",
+        en: "Exclusive jewelry store."
       },
       tech: ["E-commerce", "UX/UI Design", "SEO"],
       link: "https://silveroon.com",
       repo: "#",
-      imageUrl: "/projects/silveroon.jpg"
+      imageUrl: resolvePath("projects/silveroon.jpg")
     },
     {
       id: 19,
@@ -493,18 +488,11 @@ const Portfolio: React.FC = () => {
       repo: "#",
       isPlaceholder: true
     }
-  ] as any[];
-
-  // Usunięto tablicę skills
+  ];
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
   };
 
   return (
@@ -523,8 +511,7 @@ const Portfolio: React.FC = () => {
             className="cursor-pointer"
             onClick={scrollToTop}
           >
-            {/* ZMIANA: Zamiast tekstu, wstawiamy obrazek */}
-            <img src="/logo.png" alt="DProject Logo" className="h-10 w-auto" />
+            <img src={resolvePath("logo.png")} alt="DProject Logo" className="h-10 w-auto" />
           </motion.div>
 
           <div className="hidden md:flex space-x-8 text-sm font-medium items-center">
@@ -537,7 +524,7 @@ const Portfolio: React.FC = () => {
             </motion.a>
             <motion.a 
                href="#kontakt" 
-               onClick={(e) => { e.preventDefault(); setContactOpen(true); }} // Otwiera modal kontaktowy
+               onClick={(e) => { e.preventDefault(); setContactOpen(true); }}
                className="hover:text-cyan-400 transition-colors cursor-pointer"
             >
               {t.nav_contact}
@@ -593,7 +580,6 @@ const Portfolio: React.FC = () => {
             {t.hero_badge}
           </motion.div>
 
-          {/* DUŻE LOGO Z ANIMACJĄ POD BADGEM */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -601,16 +587,16 @@ const Portfolio: React.FC = () => {
             className="flex justify-center mb-6"
           >
              <motion.img 
-               src="/logo.png" 
+               src={resolvePath("logo.png")}
                alt="DProject Logo" 
-               className="h-48 w-auto" // Zwiększono rozmiar
+               className="h-48 w-auto"
                animate={{ 
-                 scale: [1, 1.05, 1], // Pulsowanie wielkości
+                 scale: [1, 1.05, 1], 
                  filter: [
                    "drop-shadow(0 0 0px rgba(34, 211, 238, 0))", 
                    "drop-shadow(0 0 20px rgba(34, 211, 238, 0.5))", 
                    "drop-shadow(0 0 0px rgba(34, 211, 238, 0))"
-                 ] // Świecenie (glow)
+                 ] 
                }}
                transition={{
                  duration: 3,
@@ -705,8 +691,6 @@ const Portfolio: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
                 
-                onMouseEnter={() => !project.isPlaceholder && setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
                 className={`group relative ${project.isPlaceholder ? 'h-[250px] md:h-[400px] flex items-center justify-center' : 'h-[400px]'}`}
               >
                 <div className={`absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl opacity-0 ${project.isPlaceholder ? 'opacity-20' : 'group-hover:opacity-50'} transition duration-500 blur-md`}></div>
@@ -756,7 +740,9 @@ const Portfolio: React.FC = () => {
                             </div>
                             
                             <div className="mt-auto pointer-events-auto group-hover:opacity-0 transition-opacity duration-300">
-                              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors truncate">{project.title}</h3>
+                              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors truncate">
+                                {typeof project.title === 'object' ? project.title[lang] : project.title}
+                              </h3>
                               
                               <p className="text-slate-300 leading-relaxed mb-6 line-clamp-3 text-sm">
                                 {project.description[lang]}
@@ -949,7 +935,7 @@ const Portfolio: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="fixed bottom-8 right-8 z-50 flex items-center gap-3"
           >
-            {/* MESSENGER BUTTON */}
+            {/* MESSENGER BUTTON (FAB) */}
             <a
                 href="https://m.me/61585143951145"
                 target="_blank"
