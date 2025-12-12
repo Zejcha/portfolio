@@ -1,73 +1,114 @@
-# React + TypeScript + Vite
+# 🚀 DProject Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Profesjonalne portfolio do prezentacji realizacji webowych. Zbudowane w React z TypeScript, stylowane Tailwind CSS i animowane Framer Motion.
 
-Currently, two official plugins are available:
+## ✨ Funkcje
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 **Nowoczesny design** - Ciemny motyw z gradientami i efektami poświaty
+- 🌍 **Wielojęzyczność** - Obsługa języka polskiego i angielskiego
+- 📱 **Responsywność** - Pełna responsywność na wszystkich urządzeniach
+- ⚡ **Animacje** - Płynne animacje dzięki Framer Motion
+- 🖼️ **Galeria projektów** - Interaktywne karty z podglądem zdjęć
+- 📋 **Modal kontaktowy** - Kopiowanie adresu e-mail jednym kliknięciem
+- 🔒 **Polityka prywatności** - Wbudowany modal z treścią RODO
+- 🔝 **Nawigacja** - Płynne przewijanie i przycisk "do góry"
 
-## React Compiler
+## 🛠️ Technologie
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** - Biblioteka UI
+- **TypeScript** - Typowanie statyczne
+- **Vite** - Bundler i dev server
+- **Tailwind CSS** - Framework CSS utility-first
+- **Framer Motion** - Animacje
+- **Lucide React** - Ikony
 
-## Expanding the ESLint configuration
+## 📦 Instalacja
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Klonowanie repozytorium
+git clone https://github.com/Zejcha/portfolio.git
+cd portfolio
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# Instalacja zależności
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Uruchomienie dev server
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Budowanie produkcyjne
+npm run build
+
+# Podgląd buildu
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Deployment na GitHub Pages
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Automatyczny (GitHub Actions)
+1. Push do brancha `main` automatycznie uruchomi deployment
+2. Workflow znajduje się w `.github/workflows/deploy.yml`
+3. Strona będzie dostępna pod: `https://zejcha.github.io/portfolio/`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Manualny (gh-pages)
+```bash
+# Budowanie i deployment jednym poleceniem
+npm run deploy
 ```
+
+## ⚙️ Konfiguracja
+
+### Zmiana nazwy repozytorium
+Jeśli chcesz użyć innej nazwy repozytorium, zmień:
+
+1. **vite.config.ts** - wartość `base`
+```typescript
+base: '/twoja-nazwa-repo/'
+```
+
+2. **package.json** - wartość `homepage`
+```json
+"homepage": "https://twojlogin.github.io/twoja-nazwa-repo"
+```
+
+3. **index.html** - zaktualizuj URL-e w meta tagach
+
+### Personalizacja treści
+- Projekty: edytuj tablicę `projects` w `src/App.tsx`
+- Tłumaczenia: edytuj obiekt `translations` w `src/App.tsx`
+- Logo i obrazki: zamień pliki w folderze `public/`
+
+## 📁 Struktura projektu
+
+```
+portfolio/
+├── public/
+│   ├── logo.png           # Logo główne
+│   ├── 404.html           # Strona dla GitHub Pages SPA
+│   └── projects/          # Zdjęcia projektów
+├── src/
+│   ├── App.tsx            # Główny komponent
+│   ├── main.tsx           # Entry point
+│   ├── index.css          # Style globalne (Tailwind)
+│   └── App.css            # Dodatkowe style
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     # GitHub Actions workflow
+├── index.html             # Template HTML z SEO
+├── vite.config.ts         # Konfiguracja Vite
+├── tailwind.config.js     # Konfiguracja Tailwind
+└── package.json
+```
+
+## 📄 Licencja
+
+Ten projekt jest prywatny i stanowi portfolio DProject.
+
+## 📬 Kontakt
+
+- **Email**: dpdominik@int.pl
+- **GitHub**: [@Zejcha](https://github.com/Zejcha)
+- **Facebook**: [DProject](https://www.facebook.com/profile.php?id=61585143951145)
+
+---
+
+© 2025 DProject. Zbudowane z ❤️ używając React & Tailwind CSS.

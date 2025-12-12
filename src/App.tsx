@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Mail, Menu, X, ArrowUp, Plus, Languages, Shield, Copy, Check, Facebook, MessageCircle, ExternalLink, ChevronDown } from 'lucide-react';
+import { 
+  Github, Mail, Menu, X, ArrowUp, Plus, Languages, Shield, 
+  Copy, Check, Facebook, MessageCircle, ExternalLink, ChevronDown 
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TYPY I INTERFEJSY ---
@@ -24,9 +27,33 @@ interface Project {
 }
 
 // --- FUNKCJA NAPRAWIAJĄCA ŚCIEŻKI (FIX DLA GITHUB PAGES) ---
+// Ta funkcja zapewnia poprawne ścieżki do obrazków niezależnie od tego,
+// czy jesteś na localhost, czy na https://zejcha.github.io/portfolio/
 const resolvePath = (path: string) => {
+  // Usuwamy początkowy slash z path, jeśli istnieje, aby uniknąć podwójnych //
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  return `${import.meta.env.BASE_URL}${cleanPath}`;
+  
+  // Domyślna baza, zgodna z konfiguracją w vite.config.ts
+  let baseUrl = '/portfolio/';
+
+  // Próba bezpiecznego pobrania BASE_URL z Vite (import.meta.env)
+  // Używamy try-catch i sprawdzeń typu, aby uniknąć błędów w środowiskach ES2015
+  try {
+    // @ts-ignore - ignorujemy błędy TS dla import.meta w starszych targetach
+    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) {
+      // @ts-ignore
+      baseUrl = import.meta.env.BASE_URL;
+    }
+  } catch (e) {
+    // W razie błędu zostajemy przy domyślnym '/portfolio/'
+    console.warn('Could not load import.meta.env.BASE_URL, using fallback.');
+  }
+
+  // Jeśli baseUrl kończy się slashem, łączymy bezpośrednio, jeśli nie - dodajemy go
+  if (baseUrl.endsWith('/')) {
+    return `${baseUrl}${cleanPath}`;
+  }
+  return `${baseUrl}/${cleanPath}`;
 };
 
 // --- SŁOWNIK TŁUMACZEŃ INTERFEJSU ---
@@ -50,7 +77,7 @@ const translations = {
     footer_desc: "To bardzo dobrze się składa. DProject zajmie się Twoją stroną od A do Z. Oferuję nowoczesne rozwiązania, kompleksową obsługę i przystępne ceny.",
     footer_btn_mail: "Napisz do mnie",
     footer_btn_fb: "Sprawdź", 
-    footer_copyright: "DProject. Zbudowane z Next.js & Tailwind CSS.",
+    footer_copyright: "DProject. Zbudowane z React & Tailwind CSS.",
     other_projects_title: "I wiele innych...",
     other_projects_desc: "W portfolio posiadam również szereg mniejszych projektów, landing page'y oraz dedykowanych rozwiązań wdrożonych dla klientów.",
     other_projects_link: "Zapytaj o szczegóły",
@@ -117,7 +144,7 @@ const translations = {
     footer_desc: "You've come to the right place. DProject will handle your website from A to Z. I offer modern solutions, comprehensive service, and affordable prices.",
     footer_btn_mail: "Email me",
     footer_btn_fb: "Check out",
-    footer_copyright: "DProject. Built with Next.js & Tailwind CSS.",
+    footer_copyright: "DProject. Built with React & Tailwind CSS.",
     other_projects_title: "And many more...",
     other_projects_desc: "My portfolio also includes a number of smaller projects, landing pages, and dedicated solutions implemented for clients.",
     other_projects_link: "Ask for details",
@@ -183,10 +210,11 @@ const Portfolio: React.FC = () => {
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Blokada F12 i skrótów deweloperskich (opcjonalne, może irytować użytkowników)
       if (e.key === 'F12' || 
          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) || 
          (e.ctrlKey && e.key === 'u')) {
-        e.preventDefault();
+        // e.preventDefault(); // Odkomentuj jeśli chcesz blokować
       }
     };
     document.addEventListener('contextmenu', handleContextMenu);
@@ -498,11 +526,13 @@ const Portfolio: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden relative">
       
+      {/* TŁO ANIMOWANE */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-600/20 rounded-full blur-[120px] animate-pulse-slow"></div>
         <div className="absolute bottom-[10%] right-[-5%] w-[35vw] h-[35vw] bg-cyan-600/10 rounded-full blur-[100px] animate-pulse-slow delay-1000"></div>
       </div>
 
+      {/* NAVBAR */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/80 backdrop-blur-lg border-b border-white/5 py-4 shadow-lg' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-6 flex justify-between items-center">
           <motion.div 
@@ -568,6 +598,7 @@ const Portfolio: React.FC = () => {
         </AnimatePresence>
       </nav>
 
+      {/* HERO SECTION */}
       <section className="relative z-10 min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20">
         <div className="max-w-4xl space-y-6">
           
@@ -666,6 +697,7 @@ const Portfolio: React.FC = () => {
         </motion.div>
       </section>
 
+      {/* SEKCJA PROJEKTY */}
       <section id="projekty" className="relative z-10 py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <motion.div 
@@ -693,8 +725,10 @@ const Portfolio: React.FC = () => {
                 
                 className={`group relative ${project.isPlaceholder ? 'h-[250px] md:h-[400px] flex items-center justify-center' : 'h-[400px]'}`}
               >
+                {/* Efekt poświaty */}
                 <div className={`absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl opacity-0 ${project.isPlaceholder ? 'opacity-20' : 'group-hover:opacity-50'} transition duration-500 blur-md`}></div>
                 
+                {/* Karta Projektu */}
                 <div className={`relative w-full h-full flex flex-col rounded-2xl bg-slate-900/90 border border-white/10 backdrop-blur-xl overflow-hidden transition-all duration-500 ${!project.isPlaceholder && 'group-hover:scale-[1.02]'}`}>
                   
                   {project.isPlaceholder ? (
@@ -720,7 +754,7 @@ const Portfolio: React.FC = () => {
                             >
                                 <img 
                                   src={project.imageUrl} 
-                                  alt={`Podgląd ${project.title}`}
+                                  alt={`Podgląd ${typeof project.title === 'string' ? project.title : project.title[lang]}`}
                                   className="w-full h-full object-cover object-top group-hover:object-bottom transition-all duration-[5000ms] ease-in-out opacity-90 group-hover:opacity-100 transform group-hover:scale-110"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent opacity-95 group-hover:opacity-0 transition-opacity duration-500"></div>
@@ -766,6 +800,7 @@ const Portfolio: React.FC = () => {
         </div>
       </section>
 
+      {/* FOOTER */}
       <footer id="kontakt" className="relative z-10 py-20 px-4 border-t border-white/5 bg-slate-950">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -935,7 +970,7 @@ const Portfolio: React.FC = () => {
             transition={{ duration: 0.3 }}
             className="fixed bottom-8 right-8 z-50 flex items-center gap-3"
           >
-            {/* MESSENGER BUTTON (FAB) */}
+            {/* MESSENGER BUTTON */}
             <a
                 href="https://m.me/61585143951145"
                 target="_blank"
