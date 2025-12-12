@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Github, Mail, Menu, X, ArrowUp, Plus, Languages, Shield, 
-  Copy, Check, Facebook, MessageCircle, ExternalLink, ChevronDown 
+  Copy, Check, ExternalLink, ChevronDown 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -92,74 +92,73 @@ const translations = {
     
     privacy_content: `
       1. Niniejsza Polityka Prywatności określa zasady przetwarzania danych osobowych pozyskanych za pośrednictwem strony internetowej (zwanej dalej: „Stroną internetową”).
-      2. Właścicielem strony i jednocześnie Administratorem danych jest DProject (kontakt: dpdominik@int.pl), zwany dalej Administratorem.
+      2. Właścicielem strony i jednocześnie Administratorem danych jest Dominik P. (kontakt: dpdominik@int.pl), zwany dalej Administratorem.
       3. Dane osobowe zbierane przez Administratora za pośrednictwem Strony internetowej są przetwarzane zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO).
-      4. Administrator dokłada szczególnej staranności do poszanowania prywatności Klientów odwiedzających Stronę internetową.
+      4. Administrator dokłada szczególnej staranności do poszanowania prywatności osób odwiedzających Stronę internetową.
 
       § 1 Rodzaj przetwarzanych danych, cele oraz podstawa prawna
-      1. Administrator zbiera informacje dotyczące osób fizycznych zwanych dalej łącznie Klientami.
-      2. Dane osobowe Klientów są zbierane w przypadku kontaktu drogą elektroniczną (e-mail) w celu udzielenia odpowiedzi na przesłaną wiadomość.
-      3. W przypadku kontaktu, Klient podaje następujące dane: adres e-mail, ewentualnie imię i inne dane zawarte w treści wiadomości.
+      1. Administrator zbiera informacje dotyczące osób fizycznych.
+      2. Dane osobowe są zbierane w przypadku kontaktu drogą elektroniczną (e-mail) w celu udzielenia odpowiedzi na przesłaną wiadomość.
+      3. W przypadku kontaktu podawane są następujące dane: adres e-mail, ewentualnie imię i inne dane zawarte w treści wiadomości.
       4. Podczas korzystania ze Strony internetowej mogą być pobierane dodatkowe informacje: adres IP, rodzaj przeglądarki, czas dostępu, typ systemu operacyjnego.
       5. Przekazanie danych osobowych do Administratora jest dobrowolne.
 
       § 2 Komu udostępniane lub powierzane są dane?
-      1. Dane osobowe Klienta mogą być przekazywane dostawcom usług (np. hosting GitHub Pages).
+      1. Dane osobowe mogą być przekazywane dostawcom usług (np. hosting GitHub Pages).
       2. Dane osobowe przechowywane są przez okres niezbędny do realizacji kontaktu.
       3. W przypadku skierowania żądania Administrator udostępnia dane uprawnionym organom państwowym.
 
       § 3 Mechanizm cookies, adres IP
       1. Strona internetowa używa niewielkich plików cookies.
       2. Administrator wykorzystuje cookies własne w celu analiz statystycznych i poprawy funkcjonalności strony.
-      3. Mechanizm cookies jest bezpieczny dla komputerów Klientów.
+      3. Mechanizm cookies jest bezpieczny dla komputerów użytkowników.
       4. Administrator może gromadzić adresy IP w celach technicznych.
 
       § 4 Prawa osób, których dane dotyczą
-      1. Klient ma prawo do cofnięcia zgody, sprzeciwu, usunięcia danych, ograniczenia przetwarzania, dostępu do danych oraz ich sprostowania.
+      1. Użytkownik ma prawo do cofnięcia zgody, sprzeciwu, usunięcia danych, ograniczenia przetwarzania, dostępu do danych oraz ich sprostowania.
       2. W celu realizacji praw należy skontaktować się z Administratorem.
-      3. Klientowi przysługuje prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.
+      3. Użytkownikowi przysługuje prawo do wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.
 
       § 5 Zmiany Polityki Prywatności
       1. Polityka Prywatności może ulec zmianie.
       2. Pytania prosimy kierować na adres: dpdominik@int.pl
-      3. Data ostatniej modyfikacji: 10.12.2025
+      3. Data ostatniej modyfikacji: 12.12.2025
     `
   },
   en: {
     nav_projects: "Projects",
     nav_contact: "Contact",
-    hero_badge: "DProject Development",
-    hero_title_1: "Creating websites that",
-    hero_title_2: "sell your vision.",
+    hero_badge: "Frontend Developer",
+    hero_title_1: "Hi, I'm",
+    hero_title_2: "Dominik.",
     hero_slogans: [
-      "Modern design meets efficient technology.",
-      "From concept to deployment – DProject is your partner.",
-      "Fast, responsive, and tailored solutions.",
+      "I build responsive and modern websites.",
+      "Looking for opportunities as a Junior Developer.",
+      "Passionate about frontend and new technologies.",
     ],
-    hero_btn_projects: "See my work",
-    projects_title: "Selected Projects",
-    projects_subtitle: "Below is a list of websites realized under DProject.",
+    hero_btn_projects: "See my projects",
+    projects_title: "My Projects",
+    projects_subtitle: "Below is a selection of websites and apps I've created.",
     projects_hover_hint: "Hover to view image",
-    footer_title: "Need a website?",
-    footer_desc: "You've come to the right place. DProject will handle your website from A to Z. I offer modern solutions, comprehensive service, and affordable prices.",
+    footer_title: "Let's talk!",
+    footer_desc: "I'm open to new opportunities – internship, apprenticeship, or junior position. I'd love to meet your team!",
     footer_btn_mail: "Email me",
-    footer_btn_fb: "Check out",
-    footer_copyright: "DProject. Built with React & Tailwind CSS.",
+    footer_copyright: "Dominik P. Portfolio.",
     other_projects_title: "And many more...",
-    other_projects_desc: "My portfolio also includes a number of smaller projects, landing pages, and dedicated solutions implemented for clients.",
-    other_projects_link: "Ask for details",
+    other_projects_desc: "I also have experience with smaller projects, landing pages, and experiments with new technologies.",
+    other_projects_link: "Get in touch",
     privacy_link: "Privacy Policy",
     privacy_title: "Privacy Policy",
     privacy_close: "Close",
     contact_modal_title: "Contact",
-    contact_modal_desc: "Got questions? Want to collaborate? Copy DProject email address and write to me!",
+    contact_modal_desc: "Want to discuss collaboration or have questions? Feel free to reach out!",
     contact_modal_copy_hint: "Click to copy",
     contact_modal_copied: "Copied!",
     contact_email: "dpdominik@int.pl",
 
     privacy_content: `
       1. This Privacy Policy sets out the rules for data processing on the Website.
-      2. The Data Controller is DProject (contact: dpdominik@int.pl).
+      2. The Data Controller is Dominik P. (contact: dpdominik@int.pl).
       3. Personal data is processed in accordance with GDPR.
       
       § 1 Type of data processed
@@ -182,7 +181,7 @@ const translations = {
       § 5 Changes
       1. The policy may change.
       2. Contact: dpdominik@int.pl
-      3. Last modified: 10.12.2025
+      3. Last modified: 12.12.2025
     `
   }
 };
@@ -508,8 +507,8 @@ const Portfolio: React.FC = () => {
       title: { pl: "I wiele innych...", en: "And many more..." },
       category: { pl: "Pozostałe Projekty", en: "Other Projects" },
       description: {
-        pl: "W portfolio posiadam również szereg mniejszych projektów, landing page'y oraz dedykowanych rozwiązań wdrożonych dla klientów.",
-        en: "My portfolio also includes a number of smaller projects, landing pages, and dedicated solutions implemented for clients."
+        pl: "Mam również doświadczenie z mniejszymi projektami, landing page'ami i eksperymentami z nowymi technologiami.",
+        en: "I also have experience with smaller projects, landing pages, and experiments with new technologies."
       },
       tech: ["More coming soon", "..."],
       link: "#kontakt",
@@ -820,14 +819,6 @@ const Portfolio: React.FC = () => {
             >
               <Mail size={18} /> {t.footer_btn_mail}
             </button>
-            <a
-              href="https://www.facebook.com/profile.php?id=61585143951145"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-white shadow-lg shadow-black/20"
-            >
-              <Facebook size={18} /> {t.footer_btn_fb}
-            </a>
           </div>
 
           <div className="text-slate-600 text-sm flex flex-col md:flex-row items-center justify-center gap-4">
@@ -968,19 +959,8 @@ const Portfolio: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-8 right-8 z-50 flex items-center gap-3"
+            className="fixed bottom-8 right-8 z-50"
           >
-            {/* MESSENGER BUTTON */}
-            <a
-                href="https://m.me/61585143951145"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-3 rounded-full bg-slate-800 text-white shadow-lg border border-white/10 hover:bg-slate-700 transition-colors group"
-                title="Messenger"
-            >
-                <MessageCircle size={24} className="group-hover:scale-110 transition-transform text-blue-400" />
-            </a>
-
             {/* Scroll Button */}
             <button
                 onClick={scrollToTop}
