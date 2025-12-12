@@ -5,8 +5,6 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// --- TYPY I INTERFEJSY ---
-
 type Language = 'pl' | 'en';
 
 interface LocalizedText {
@@ -26,37 +24,19 @@ interface Project {
   isPlaceholder?: boolean;
 }
 
-// --- FUNKCJA NAPRAWIAJĄCA ŚCIEŻKI (FIX DLA GITHUB PAGES) ---
-// Ta funkcja zapewnia poprawne ścieżki do obrazków niezależnie od tego,
-// czy jesteś na localhost, czy na https://zejcha.github.io/portfolio/
 const resolvePath = (path: string) => {
-  // Usuwamy początkowy slash z path, jeśli istnieje, aby uniknąć podwójnych //
   const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  
-  // Domyślna baza, zgodna z konfiguracją w vite.config.ts
   let baseUrl = '/portfolio/';
-
-  // Próba bezpiecznego pobrania BASE_URL z Vite (import.meta.env)
-  // Używamy try-catch i sprawdzeń typu, aby uniknąć błędów w środowiskach ES2015
   try {
-    // @ts-ignore - ignorujemy błędy TS dla import.meta w starszych targetach
-    if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) {
+    // @ts-ignore
+    if (typeof import.meta !== 'undefined' && import.meta.env?.BASE_URL) {
       // @ts-ignore
       baseUrl = import.meta.env.BASE_URL;
     }
-  } catch (e) {
-    // W razie błędu zostajemy przy domyślnym '/portfolio/'
-    console.warn('Could not load import.meta.env.BASE_URL, using fallback.');
-  }
-
-  // Jeśli baseUrl kończy się slashem, łączymy bezpośrednio, jeśli nie - dodajemy go
-  if (baseUrl.endsWith('/')) {
-    return `${baseUrl}${cleanPath}`;
-  }
-  return `${baseUrl}/${cleanPath}`;
+  } catch (e) {}
+  return baseUrl.endsWith('/') ? `${baseUrl}${cleanPath}` : `${baseUrl}/${cleanPath}`;
 };
 
-// --- SŁOWNIK TŁUMACZEŃ INTERFEJSU ---
 const translations = {
   pl: {
     nav_projects: "Projekty",
@@ -67,8 +47,8 @@ const translations = {
     hero_slogans: [
       "Tworzę responsywne i nowoczesne strony internetowe.",
       "Pasjonuję się nowymi technologiami.",
-      "Portfolio moich stron, stworzonych w ramach stażu.",
-      "Tworzę strony na WordPressie i WooCommerce.",
+      "Oto portfolio moich stron internetowych, stworzonych w ramach stażu.",
+      "Tworzę strony na CMS WordPressie, WooCommerce.",
       "Na rynek Polski i zagraniczny.",
     ],
     hero_btn_projects: "Zobacz moje projekty",
