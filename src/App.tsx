@@ -61,31 +61,30 @@ const translations = {
   pl: {
     nav_projects: "Projekty",
     nav_contact: "Kontakt",
-    hero_badge: "DProject Development",
-    hero_title_1: "Tworzę strony, które",
-    hero_title_2: "sprzedają Twoją wizję.",
+    hero_badge: "Frontend Developer",
+    hero_title_1: "Cześć, jestem",
+    hero_title_2: "Dominik.",
     hero_slogans: [
-      "Nowoczesny design spotyka wydajną technologię.",
-      "Od koncepcji do wdrożenia – DProject to Twój partner.",
-      "Szybkie, responsywne i skrojone na miarę rozwiązania.",
+      "Tworzę responsywne i nowoczesne strony internetowe.",
+      "Szukam możliwości rozwoju jako Junior Developer.",
+      "Pasjonuję się frontendem i nowymi technologiami.",
     ],
-    hero_btn_projects: "Zobacz realizacje",
-    projects_title: "Wybrane Projekty",
-    projects_subtitle: "Poniżej znajduje się lista stron, które zrealizowałem w ramach DProject.",
+    hero_btn_projects: "Zobacz moje projekty",
+    projects_title: "Moje Projekty",
+    projects_subtitle: "Poniżej znajduje się wybór stron i aplikacji, które stworzyłem.",
     projects_hover_hint: "Najedź, aby zobaczyć zdjęcie",
-    footer_title: "Szukasz strony?",
-    footer_desc: "To bardzo dobrze się składa. DProject zajmie się Twoją stroną od A do Z. Oferuję nowoczesne rozwiązania, kompleksową obsługę i przystępne ceny.",
+    footer_title: "Porozmawiajmy!",
+    footer_desc: "Jestem otwarty na nowe możliwości – staż, praktyki lub stanowisko juniorskie. Chętnie poznam Twój zespół!",
     footer_btn_mail: "Napisz do mnie",
-    footer_btn_fb: "Sprawdź", 
-    footer_copyright: "DProject. Zbudowane z React & Tailwind CSS.",
+    footer_copyright: "Dominik P. Portfolio.",
     other_projects_title: "I wiele innych...",
-    other_projects_desc: "W portfolio posiadam również szereg mniejszych projektów, landing page'y oraz dedykowanych rozwiązań wdrożonych dla klientów.",
-    other_projects_link: "Zapytaj o szczegóły",
+    other_projects_desc: "Mam również doświadczenie z mniejszymi projektami i eksperymentami z nowymi technologiami.",
+    other_projects_link: "Skontaktuj się",
     privacy_link: "Polityka Prywatności",
     privacy_title: "Polityka Prywatności",
     privacy_close: "Zamknij",
     contact_modal_title: "Kontakt",
-    contact_modal_desc: "Masz pytania? Chcesz nawiązać współpracę? Skopiuj adres e-mail DProject i napisz!",
+    contact_modal_desc: "Chcesz porozmawiać o współpracy lub masz pytania? Śmiało napisz!",
     contact_modal_copy_hint: "Kliknij, aby skopiować",
     contact_modal_copied: "Skopiowano!",
     contact_email: "dpdominik@int.pl",
@@ -540,7 +539,7 @@ const Portfolio: React.FC = () => {
             className="cursor-pointer"
             onClick={scrollToTop}
           >
-            <img src={resolvePath("logo.png")} alt="DProject Logo" className="h-10 w-auto" />
+            <img src={resolvePath("logo.png")} alt="Logo" className="h-10 w-auto" />
           </motion.div>
 
           <div className="hidden md:flex space-x-8 text-sm font-medium items-center">
@@ -618,7 +617,7 @@ const Portfolio: React.FC = () => {
           >
              <motion.img 
                src={resolvePath("logo.png")}
-               alt="DProject Logo" 
+               alt="Logo" 
                className="h-48 w-auto"
                animate={{ 
                  scale: [1, 1.05, 1], 
