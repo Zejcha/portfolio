@@ -755,16 +755,16 @@ const Portfolio: React.FC = () => {
                                 <img 
                                   src={project.imageUrl} 
                                   alt={`Podgląd ${typeof project.title === 'string' ? project.title : project.title[lang]}`}
-                                  className="w-full h-full object-cover object-top group-hover:object-bottom transition-all duration-[5000ms] ease-in-out opacity-90 group-hover:opacity-100 transform group-hover:scale-110"
+                                  className="w-full h-full object-cover object-top group-hover:object-bottom transition-all duration-[5000ms] ease-in-out opacity-80 group-hover:opacity-100 transform group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent opacity-95 group-hover:opacity-0 transition-opacity duration-500"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40 group-hover:opacity-0 transition-opacity duration-500"></div>
                             </motion.div>
                             )}
                         </AnimatePresence>
 
                         <div className="flex flex-col h-full p-8 relative z-30 pointer-events-none">
                             <div className="flex justify-between items-start mb-4 pointer-events-auto">
-                              <span className="text-xs font-bold tracking-wider text-cyan-400 uppercase bg-slate-950/80 px-2 py-1 rounded border border-cyan-500/20 truncate max-w-[60%] backdrop-blur-md shadow-lg group-hover:opacity-0 transition-opacity duration-300">
+                              <span className="text-xs font-bold tracking-wider text-cyan-300 uppercase bg-slate-950/90 px-3 py-1.5 rounded-lg border border-cyan-500/30 truncate max-w-[60%] backdrop-blur-md shadow-xl group-hover:opacity-0 transition-opacity duration-300" style={{textShadow: '0 1px 2px rgba(0,0,0,0.8)'}}>
                                   {project.category[lang]}
                               </span>
                               
@@ -774,17 +774,17 @@ const Portfolio: React.FC = () => {
                             </div>
                             
                             <div className="mt-auto pointer-events-auto group-hover:opacity-0 transition-opacity duration-300">
-                              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors truncate">
+                              <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors truncate" style={{textShadow: '0 2px 4px rgba(0,0,0,0.9)'}}>
                                 {typeof project.title === 'object' ? project.title[lang] : project.title}
                               </h3>
                               
-                              <p className="text-slate-300 leading-relaxed mb-6 line-clamp-3 text-sm">
+                              <p className="text-slate-200 leading-relaxed mb-6 line-clamp-3 text-sm" style={{textShadow: '0 1px 3px rgba(0,0,0,0.8)'}}>
                                 {project.description[lang]}
                               </p>
 
                               <div className="flex flex-wrap gap-2 pt-2">
                                 {project.tech.map((t) => (
-                                    <span key={t} className="px-3 py-1 text-xs rounded-full bg-slate-950/80 border border-white/10 text-slate-300 shadow-sm backdrop-blur-md">
+                                    <span key={t} className="px-3 py-1.5 text-xs rounded-full bg-slate-950/90 border border-white/20 text-slate-100 shadow-lg backdrop-blur-md font-medium">
                                     {t}
                                     </span>
                                 ))}
