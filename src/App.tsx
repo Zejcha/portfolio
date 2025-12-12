@@ -195,6 +195,8 @@ const Portfolio: React.FC = () => {
   const [privacyOpen, setPrivacyOpen] = useState<boolean>(false);
   const [contactOpen, setContactOpen] = useState<boolean>(false);
   const [isCopied, setIsCopied] = useState<boolean>(false);
+  const [typedName, setTypedName] = useState<string>('');
+  const [showCursor, setShowCursor] = useState<boolean>(true);
 
   const t = translations[lang];
 
@@ -204,6 +206,28 @@ const Portfolio: React.FC = () => {
     }, 3500); 
     return () => clearInterval(interval);
   }, [t.hero_slogans.length]);
+
+  useEffect(() => {
+    const fullName = t.hero_title_2;
+    setTypedName('');
+    let i = 0;
+    const typingInterval = setInterval(() => {
+      if (i < fullName.length) {
+        setTypedName(fullName.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150);
+    return () => clearInterval(typingInterval);
+  }, [t.hero_title_2]);
+
+  useEffect(() => {
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
+    return () => clearInterval(cursorInterval);
+  }, []);
 
   useEffect(() => {
     const handleContextMenu = (e: MouseEvent) => e.preventDefault();
@@ -643,7 +667,8 @@ const Portfolio: React.FC = () => {
           >
             {t.hero_title_1} <br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-600">
-              {t.hero_title_2}
+              {typedName}
+              <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-100`}>|</span>
             </span>
           </motion.h1>
 

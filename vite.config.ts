@@ -1,8 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Konfiguracja bazy jest kluczowa dla GitHub Pages.
-// Jeśli repozytorium nazywa się "portfolio", base musi wynosić '/portfolio/'
 export default defineConfig({
   plugins: [react()],
   base: '/portfolio/',

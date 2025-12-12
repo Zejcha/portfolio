@@ -1,22 +1,2 @@
-# Blokada indeksowania przez wyszukiwarki
 User-agent: *
-Disallow: /
-
-# Blokada dla konkretnych botów
-User-agent: Googlebot
-Disallow: /
-
-User-agent: Bingbot
-Disallow: /
-
-User-agent: Yahoo! Slurp
-Disallow: /
-
-User-agent: DuckDuckBot
-Disallow: /
-
-User-agent: Baiduspider
-Disallow: /
-
-User-agent: YandexBot
 Disallow: /
